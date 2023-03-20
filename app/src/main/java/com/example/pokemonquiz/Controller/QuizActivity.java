@@ -29,7 +29,7 @@ import java.util.List;
 
 public class QuizActivity extends AppCompatActivity {
 
-    public boolean choice ;
+    public boolean choice = false;
     public CountDownTimer timer;
     int score = 0;
     int answered = 0;
@@ -44,7 +44,60 @@ public class QuizActivity extends AppCompatActivity {
     private Button btn3;
     private Button btnExit;
     public ProgressBar simpleProgressBar;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_quiz_activity);
+
+        pokemonViewModel = ViewModelProviders.of(this).get(PokemonViewModel.class);
+        PokemonAdapter adapter = new PokemonAdapter();
+
+        pokemonViewModel.getAll().observe(this, new Observer<List<Pokemon>>() {
+            @Override
+            public void onChanged(List<Pokemon> pokemons) {
+
+                adapter.setPokemonList(pokemons);
+
+                // Fetch questions
+                questions = pokemons;
+
+
+                //DETTE FUNKER IKKE
+                //Bundle values = getIntent().getBundleExtra("choice");
+                //choice = values.getBoolean("choice",false);
+
+
+
+                //    Pokemon p =  pokemonViewModel.getStandardPokemonList().get(0);
+
+                //Shuffle the questions to preserve randomness
+
+                System.out.println("SHUFFLED");
+
+
+
+                // Setup imageView and buttons
+                imageView = findViewById(R.id.imageView);
+
+                btn1 = findViewById(R.id.btn1);
+                btn2 = findViewById(R.id.btn2);
+                btn3 = findViewById(R.id.btn3);
+
+                displayNextQuestion();
+
+
+            }
+
+
+        });
+
+    }
+
+
     @SuppressLint("SetTextI18n")
+
     private void displayNextQuestion() {
         simpleProgressBar=(ProgressBar) findViewById(R.id.simpleProgressBar); // initiate the progress bar
         TextView scoreBoard = findViewById(R.id.scoreBoard);
@@ -144,62 +197,18 @@ public class QuizActivity extends AppCompatActivity {
     public void returnToMainMenu(){
         Intent intent = new Intent(QuizActivity.this, new MainActivity().getClass());
         startActivity(intent);
+        finish();
     }
     public void exitButton(){
         Button btnExit = findViewById(R.id.exit);
         btnExit.setOnClickListener(view -> {
             Intent intent = new Intent(QuizActivity.this, new MainActivity().getClass());
             startActivity(intent);
+            finish();
         });
     }
 
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quiz_activity);
 
-        pokemonViewModel = ViewModelProviders.of(this).get(PokemonViewModel.class);
-        PokemonAdapter adapter = new PokemonAdapter();
-
-        pokemonViewModel.getAll().observe(this, new Observer<List<Pokemon>>() {
-            @Override
-            public void onChanged(List<Pokemon> pokemons) {
-
-                adapter.setPokemonList(pokemons);
-
-                // Fetch questions
-                questions = adapter.getPokemonList();
-
-                choice = false;
-               // Bundle values = getIntent().getExtras();
-                // choice = values.getBoolean("choice",false);
-
-
-
-                //    Pokemon p =  pokemonViewModel.getStandardPokemonList().get(0);
-
-                //Shuffle the questions to preserve randomness
-
-                System.out.println("SHUFFLED");
-
-
-
-                // Setup imageView and buttons
-                imageView = findViewById(R.id.imageView);
-
-                btn1 = findViewById(R.id.btn1);
-                btn2 = findViewById(R.id.btn2);
-                btn3 = findViewById(R.id.btn3);
-
-                displayNextQuestion();
-
-
-            }
-
-
-        });
-
-    }
 }

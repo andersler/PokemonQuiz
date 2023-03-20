@@ -31,8 +31,6 @@ public class AddPokemonActivity extends AppCompatActivity {
 
     private PokemonViewModel pokemonViewModel;
 
-    private static final int CAMERA_REQUEST = 1888;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +41,6 @@ public class AddPokemonActivity extends AppCompatActivity {
 
         Button existingPhotoButton = (Button) findViewById(R.id.existing_photo_button);
         existingPhotoButton.setOnClickListener(view -> existingPhoto());
-
-        Button newPhotoButton = (Button) findViewById(R.id.new_photo_button);
-        newPhotoButton.setOnClickListener(view -> newPhoto());
 
         answerText = (EditText) findViewById(R.id.answerEntry);
 
@@ -93,17 +88,13 @@ public class AddPokemonActivity extends AppCompatActivity {
             getPhoto.launch(i);
         }
 
-        private void newPhoto() {
-            Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(cameraIntent, CAMERA_REQUEST);
-        }
 
     void submitEntry() {
         pokemonViewModel = ViewModelProviders.of(this).get(PokemonViewModel.class);
         String answer = answerText.getText().toString();
         System.out.println("Added image with answer " + answer);
         if (picture != null && !answer.equals("")) {
-            Pokemon pokemon = new Pokemon(answer,createScaledBitmap(picture,100,100,true));
+            Pokemon pokemon = new Pokemon(answer,createScaledBitmap(picture,1000,1000,true));
             pokemonViewModel.insertPokemon(pokemon);
         }
         finish();

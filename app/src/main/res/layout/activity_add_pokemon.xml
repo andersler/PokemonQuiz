@@ -23,12 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="Exit" />
-        <Button
-            android:id="@+id/new_photo_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Take a picture" />
+
 
         <Button
             android:id="@+id/existing_photo_button"

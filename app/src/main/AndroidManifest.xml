@@ -21,7 +21,9 @@
 
         <activity
             android:name=".Controller.QuizActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            />
 
         <activity
             android:name=".Controller.MainActivity"

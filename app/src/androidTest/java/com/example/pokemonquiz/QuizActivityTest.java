@@ -57,4 +57,25 @@ public class QuizActivityTest {
             activityScenario.close();
         }
 
+
+    @Test
+    public void testRandomButton2() {
+        // Launch QuizActivity
+        Intent intent = new Intent(context, QuizActivity.class);
+        ActivityScenario<QuizActivity> activityScenario = ActivityScenario.launch(intent);
+
+        onView(withId(R.id.btn1)).perform(click());
+
+        // If we hit the correct answer (1/3 chance)
+        if (withId(R.id.scoreBoard).matches(matches(ViewMatchers.withText("Score: 1/1")))) {
+            onView(withId(R.id.feedback)).check(matches(withSubstring("")));
+
+            // If we hit the wrong answer (2/3 chance)
+        } else if (withId(R.id.scoreBoard).matches(matches(ViewMatchers.withText("Score: 0/1")))) {
+            onView(withId(R.id.feedback)).check(matches(withSubstring("Right answer was: ")));
+        }
+
+        activityScenario.close();
     }
+
+}

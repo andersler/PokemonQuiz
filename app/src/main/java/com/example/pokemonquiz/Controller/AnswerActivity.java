@@ -39,11 +39,6 @@ public class AnswerActivity extends AppCompatActivity {
 
         pokemonViewModel = ViewModelProviders.of(this).get(PokemonViewModel.class);
 
-        //Pokemon p = new Pokemon("Bulbasaur", Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.bulbasaur), 100, 100, true));
-        // pokemonViewModel.insertPokemon(p);
-        // pokemonViewModel.deletePokemon(p);
-
-
         pokemonViewModel.getAll().observe(this, new Observer<List<Pokemon>>() {
             @Override
             public void onChanged(List<Pokemon> pokemons) {

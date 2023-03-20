@@ -44,11 +44,11 @@ public class MainActivity extends AppCompatActivity {
             Bitmap q2 = BitmapFactory.decodeResource(getResources(), R.drawable.charmander);
             Bitmap q1 = BitmapFactory.decodeResource(getResources(), R.drawable.marill);
 
-            pokemonViewModel.deleteAll();
+            //pokemonViewModel.deleteAll();
 
-            pokemonViewModel.insertPokemon(new Pokemon("Bulbasaur", Bitmap.createScaledBitmap(q3,100,100,true)));
-            pokemonViewModel.insertPokemon(new Pokemon("Charmander",Bitmap.createScaledBitmap(q2,100,100,true)));
-            pokemonViewModel.insertPokemon(new Pokemon("Marill",Bitmap.createScaledBitmap(q1,100,100,true)));
+            pokemonViewModel.insertPokemon(new Pokemon("Bulbasaur", Bitmap.createScaledBitmap(q3,1000,1000,true)));
+            pokemonViewModel.insertPokemon(new Pokemon("Charmander",Bitmap.createScaledBitmap(q2,1000,1000,true)));
+            pokemonViewModel.insertPokemon(new Pokemon("Marill",Bitmap.createScaledBitmap(q1,1000,1000,true)));
 
              initialized = true;
         }
@@ -114,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.hardQuiz:
                 intentQuiz.putExtra("choice",true);
                 startActivity(intentQuiz);
+
             default:
                 return super.onOptionsItemSelected(item);
         }

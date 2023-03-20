@@ -16,7 +16,6 @@ public class PokemonViewModel extends AndroidViewModel {
     private Repository repository;
     private LiveData<List<Pokemon>> getAll;
 
-
     public PokemonViewModel(@NonNull Application application) {
         super(application);
         repository = new Repository(application);
@@ -26,7 +25,8 @@ public class PokemonViewModel extends AndroidViewModel {
    public LiveData<List<Pokemon>> getAll() {return getAll;}
 
 
-    public void insertPokemon(Pokemon pokemon) { repository.insertPokemon(pokemon);}
+    public void insertPokemon(Pokemon pokemon) {
+        repository.insertPokemon(pokemon);}
 
     public void deletePokemon(Pokemon pokemon) {repository.deletePokemon(pokemon);}
 
