@@ -3,6 +3,34 @@
   <component name="AndroidTestResultsUserPreferences">
     <option name="androidTestResultsTableState">
       <map>
+        <entry key="-1377933241">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="61991585" value="120" />
+                  <entry key="Duration" value="90" />
+                  <entry key="OnePlus&#10; ONEPLUS A6003" value="120" />
+                  <entry key="Tests" value="360" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="-1085997025">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="61991585" value="120" />
+                  <entry key="Duration" value="90" />
+                  <entry key="OnePlus&#10; ONEPLUS A6003" value="120" />
+                  <entry key="Tests" value="360" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
         <entry key="-358341213">
           <value>
             <AndroidTestResultsTableState>
@@ -17,12 +45,28 @@
             </AndroidTestResultsTableState>
           </value>
         </entry>
+        <entry key="-131635608">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="61991585" value="120" />
+                  <entry key="Duration" value="90" />
+                  <entry key="OnePlus&#10; ONEPLUS A6003" value="120" />
+                  <entry key="Tests" value="360" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
         <entry key="153077134">
           <value>
             <AndroidTestResultsTableState>
               <option name="preferredColumnWidths">
                 <map>
+                  <entry key="61991585" value="120" />
                   <entry key="Duration" value="90" />
+                  <entry key="OnePlus&#10; ONEPLUS A6003" value="120" />
                   <entry key="Tests" value="360" />
                   <entry key="ce061606a3c14b1003" value="120" />
                   <entry key="samsung&#10; SM-G930F" value="120" />
