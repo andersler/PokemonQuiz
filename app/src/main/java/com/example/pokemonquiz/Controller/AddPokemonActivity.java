@@ -29,7 +29,7 @@ public class AddPokemonActivity extends AppCompatActivity {
     EditText answerText;
     private ImageView imageView;
 
-    private PokemonViewModel pokemonViewModel;
+    public PokemonViewModel pokemonViewModel;
 
 
     @Override

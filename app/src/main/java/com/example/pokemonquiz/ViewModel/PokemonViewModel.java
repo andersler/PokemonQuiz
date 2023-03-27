@@ -13,8 +13,8 @@ import java.util.List;
 
 public class PokemonViewModel extends AndroidViewModel {
 
-    private Repository repository;
-    private LiveData<List<Pokemon>> getAll;
+    public Repository repository;
+    public LiveData<List<Pokemon>> getAll;
 
     public PokemonViewModel(@NonNull Application application) {
         super(application);
