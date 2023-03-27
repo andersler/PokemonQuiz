@@ -38,18 +38,17 @@ public class MainActivity extends AppCompatActivity {
         pokemonViewModel = ViewModelProviders.of(this).get(PokemonViewModel.class);
 
 
-         if(pokemonViewModel.getAll() == null) {
+         if(pokemonViewModel.getAll() == null || !initialized) {
           //  Initialize question list, can be accessed regardless of what activity started first
            Bitmap q3 = BitmapFactory.decodeResource(getResources(), R.drawable.bulbasaur);
             Bitmap q2 = BitmapFactory.decodeResource(getResources(), R.drawable.charmander);
             Bitmap q1 = BitmapFactory.decodeResource(getResources(), R.drawable.marill);
 
-           // pokemonViewModel.deleteAll();
+           //pokemonViewModel.deleteAll();
 
             pokemonViewModel.insertPokemon(new Pokemon("Bulbasaur", Bitmap.createScaledBitmap(q3,1000,1000,true)));
             pokemonViewModel.insertPokemon(new Pokemon("Charmander",Bitmap.createScaledBitmap(q2,1000,1000,true)));
             pokemonViewModel.insertPokemon(new Pokemon("Marill",Bitmap.createScaledBitmap(q1,1000,1000,true)));
-
              initialized = true;
         }
 
