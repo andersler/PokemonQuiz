@@ -74,33 +74,17 @@ public ActivityScenarioRule<QuizActivity> QuizActivityRule = new ActivityScenari
         @Test
         public void rightAnswerPressed(){
 
-           QuizActivity quizActivity = new QuizActivity();
-        //   List<Pokemon> questions = quizActivity.questions;
-        //   int scoreBefore = quizActivity.score;
-        //   int questionIndex = quizActivity.answered;
-        //   String correctAnswer = questions.get(questionIndex).getName();
-        //   onView(withText(correctAnswer)).perform(click());
-         //  int scoreAfter = quizActivity.score;
-         //  Assert.assertTrue(scoreBefore < scoreAfter);
+
+            onView(withId(R.id.btn2)).perform(click());
+            onView(withId(R.id.scoreBoard)).check((matches(withText("Score: 1/1"))));
 
         }
         @Test
         public void wrongAnswerPressed(){
-            QuizActivity quizActivity = new QuizActivity();
 
-        /*    List<Pokemon> questions = quizActivity.questions;
-            int scoreBefore = quizActivity.score;
-            int questionIndex = quizActivity.answered;
-            String wrongAnswer = "";
-            if(questionIndex > 0) {
-                wrongAnswer = questions.get(questionIndex-1).getName();
-            }
-            if(questionIndex == 0){
-                wrongAnswer = questions.get(1).getName();
-            }
-            onView(withText(wrongAnswer)).perform(click());
-            int scoreAfter = quizActivity.score;
-            Assert.assertTrue(scoreBefore == scoreAfter);*/
+            onView(withId(R.id.btn2)).perform(click());
+            onView(withId(R.id.scoreBoard)).check((matches(withText("Score: 0/1"))));
+
         }
 
 
