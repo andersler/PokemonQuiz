@@ -31,11 +31,11 @@ public class QuizActivity extends AppCompatActivity {
 
     public boolean choice = false;
     public CountDownTimer timer;
-    int score = 0;
-    int answered = 0;
+    public int score = 0;
+    public int answered = 0;
 
     private PokemonViewModel pokemonViewModel;
-    private List<Pokemon> questions;
+    public List<Pokemon> questions;
 
     private ImageView imageView;
 
@@ -50,6 +50,7 @@ public class QuizActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_activity);
+
 
         pokemonViewModel = ViewModelProviders.of(this).get(PokemonViewModel.class);
         PokemonAdapter adapter = new PokemonAdapter();
@@ -73,7 +74,7 @@ public class QuizActivity extends AppCompatActivity {
                 //    Pokemon p =  pokemonViewModel.getStandardPokemonList().get(0);
 
                 //Shuffle the questions to preserve randomness
-
+                Collections.shuffle(questions);
                 System.out.println("SHUFFLED");
 
 
@@ -86,11 +87,7 @@ public class QuizActivity extends AppCompatActivity {
                 btn3 = findViewById(R.id.btn3);
 
                 displayNextQuestion();
-
-
             }
-
-
         });
 
     }

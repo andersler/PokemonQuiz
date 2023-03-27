@@ -70,6 +70,7 @@ public ActivityScenarioRule<QuizActivity> QuizActivityRule = new ActivityScenari
         public void testButtonThree(){
             onView(withId(R.id.btn3)).perform(click());
         }
+
         @Test
         public void rightAnswerPressed(){
 
@@ -80,12 +81,13 @@ public ActivityScenarioRule<QuizActivity> QuizActivityRule = new ActivityScenari
            String correctAnswer = questions.get(questionIndex).getName();
            onView(withText(correctAnswer)).perform(click());
            int scoreAfter = quizActivity.score;
-            Assert.assertTrue(scoreBefore < scoreAfter);
+           Assert.assertTrue(scoreBefore < scoreAfter);
 
         }
         @Test
         public void wrongAnswerPressed(){
             QuizActivity quizActivity = new QuizActivity();
+
             List<Pokemon> questions = quizActivity.questions;
             int scoreBefore = quizActivity.score;
             int questionIndex = quizActivity.answered;
