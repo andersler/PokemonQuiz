@@ -1,0 +1,102 @@
+Index: app/src/main/java/com/example/pokemonquiz/Controller/AddPokemonActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.pokemonquiz.Controller;\n\nimport static android.graphics.Bitmap.createScaledBitmap;\n\nimport androidx.activity.result.ActivityResultLauncher;\nimport androidx.activity.result.contract.ActivityResultContracts;\nimport androidx.appcompat.app.AppCompatActivity;\nimport androidx.lifecycle.ViewModelProviders;\n\nimport android.app.Activity;\nimport android.content.Intent;\nimport android.graphics.Bitmap;\nimport android.graphics.BitmapFactory;\nimport android.net.Uri;\nimport android.os.Bundle;\nimport android.widget.Button;\nimport android.widget.EditText;\nimport android.widget.ImageView;\n\nimport com.example.pokemonquiz.DataAccess.Pokemon;\nimport com.example.pokemonquiz.R;\nimport com.example.pokemonquiz.ViewModel.PokemonViewModel;\n\nimport java.io.FileNotFoundException;\nimport java.io.IOException;\n\npublic class AddPokemonActivity extends AppCompatActivity {\n    Bitmap picture;\n    EditText answerText;\n    private ImageView imageView;\n\n    private PokemonViewModel pokemonViewModel;\n\n\n    @Override\n    protected void onCreate(Bundle savedInstanceState) {\n        super.onCreate(savedInstanceState);\n        setContentView(R.layout.activity_add_pokemon);\n\n        imageView = findViewById(R.id.image_view);\n\n        Button existingPhotoButton = (Button) findViewById(R.id.existing_photo_button);\n        existingPhotoButton.setOnClickListener(view -> existingPhoto());\n\n        answerText = (EditText) findViewById(R.id.answerEntry);\n\n        Button submit = findViewById(R.id.submit);\n        submit.setOnClickListener(view -> submitEntry());\n        exitButton();\n    }\n\n    public void exitButton() {\n        Button btnExit = findViewById(R.id.exit);\n        btnExit.setOnClickListener(view -> {\n            Intent intent = new Intent(AddPokemonActivity.this, new MainActivity().getClass());\n            startActivity(intent);\n            finish();\n        });\n    }\n\n        ActivityResultLauncher<Intent> getPhoto = registerForActivityResult(\n                new ActivityResultContracts.StartActivityForResult(), result -> {\n                    if (result.getResultCode() == Activity.RESULT_OK) {\n                        Intent data = result.getData();\n\n                        if (data != null && data.getData() != null) {\n                            Uri uri = data.getData();\n                            System.out.println(\"Data got\");\n                            try {\n                                picture = BitmapFactory.decodeStream(\n                                        getContentResolver().openInputStream(uri)\n                                );\n                                imageView.setImageBitmap(picture);\n\n                            } catch (IOException e) {\n                                e.printStackTrace();\n\n                            }\n                        }\n                    }\n                });\n\n\n        private void existingPhoto() {\n            Intent i = new Intent();\n            i.setType(\"image/*\");\n            i.setAction(Intent.ACTION_GET_CONTENT);\n            getPhoto.launch(i);\n        }\n\n\n    void submitEntry() {\n        pokemonViewModel = ViewModelProviders.of(this).get(PokemonViewModel.class);\n        String answer = answerText.getText().toString();\n        System.out.println(\"Added image with answer \" + answer);\n        if (picture != null && !answer.equals(\"\")) {\n            Pokemon pokemon = new Pokemon(answer,createScaledBitmap(picture,1000,1000,true));\n            pokemonViewModel.insertPokemon(pokemon);\n        }\n        finish();\n    }\n\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/pokemonquiz/Controller/AddPokemonActivity.java b/app/src/main/java/com/example/pokemonquiz/Controller/AddPokemonActivity.java
+--- a/app/src/main/java/com/example/pokemonquiz/Controller/AddPokemonActivity.java	(revision 955b1eb1b67bb2fcd126cab09a427732a01ce8d8)
++++ b/app/src/main/java/com/example/pokemonquiz/Controller/AddPokemonActivity.java	(date 1679918428162)
+@@ -29,7 +29,7 @@
+     EditText answerText;
+     private ImageView imageView;
+ 
+-    private PokemonViewModel pokemonViewModel;
++    public PokemonViewModel pokemonViewModel;
+ 
+ 
+     @Override
+Index: app/src/main/java/com/example/pokemonquiz/ViewModel/PokemonViewModel.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.pokemonquiz.ViewModel;\n\nimport android.app.Application;\n\nimport androidx.annotation.NonNull;\nimport androidx.lifecycle.AndroidViewModel;\nimport androidx.lifecycle.LiveData;\nimport com.example.pokemonquiz.DataAccess.Pokemon;\nimport com.example.pokemonquiz.Repo.Repository;\n\nimport java.util.ArrayList;\nimport java.util.List;\n\npublic class PokemonViewModel extends AndroidViewModel {\n\n    private Repository repository;\n    private LiveData<List<Pokemon>> getAll;\n\n    public PokemonViewModel(@NonNull Application application) {\n        super(application);\n        repository = new Repository(application);\n        getAll = repository.getAll();\n    }\n\n   public LiveData<List<Pokemon>> getAll() {return getAll;}\n\n\n    public void insertPokemon(Pokemon pokemon) {\n        repository.insertPokemon(pokemon);}\n\n    public void deletePokemon(Pokemon pokemon) {repository.deletePokemon(pokemon);}\n\n    public void deleteAll(){repository.deleteAllPokemons();}\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/pokemonquiz/ViewModel/PokemonViewModel.java b/app/src/main/java/com/example/pokemonquiz/ViewModel/PokemonViewModel.java
+--- a/app/src/main/java/com/example/pokemonquiz/ViewModel/PokemonViewModel.java	(revision 955b1eb1b67bb2fcd126cab09a427732a01ce8d8)
++++ b/app/src/main/java/com/example/pokemonquiz/ViewModel/PokemonViewModel.java	(date 1679918429318)
+@@ -13,8 +13,8 @@
+ 
+ public class PokemonViewModel extends AndroidViewModel {
+ 
+-    private Repository repository;
+-    private LiveData<List<Pokemon>> getAll;
++    public Repository repository;
++    public LiveData<List<Pokemon>> getAll;
+ 
+     public PokemonViewModel(@NonNull Application application) {
+         super(application);
+Index: app/src/androidTest/java/com/example/pokemonquiz/AddEntryTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/androidTest/java/com/example/pokemonquiz/AddEntryTest.java b/app/src/androidTest/java/com/example/pokemonquiz/AddEntryTest.java
+new file mode 100644
+--- /dev/null	(date 1679918430158)
++++ b/app/src/androidTest/java/com/example/pokemonquiz/AddEntryTest.java	(date 1679918430158)
+@@ -0,0 +1,52 @@
++package com.example.pokemonquiz;
++
++import static androidx.test.espresso.Espresso.onView;
++import static androidx.test.espresso.action.ViewActions.click;
++import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
++import static androidx.test.espresso.action.ViewActions.typeText;
++import static androidx.test.espresso.matcher.ViewMatchers.withId;
++
++import android.app.Application;
++import android.content.Context;
++import android.graphics.Bitmap;
++import android.os.Looper;
++import android.widget.ImageView;
++
++import androidx.test.core.app.ActivityScenario;
++import androidx.test.ext.junit.rules.ActivityScenarioRule;
++import androidx.test.ext.junit.runners.AndroidJUnit4;
++import androidx.test.filters.LargeTest;
++
++import com.example.pokemonquiz.Controller.AddPokemonActivity;
++import com.example.pokemonquiz.Controller.MainActivity;
++import com.example.pokemonquiz.Controller.QuizActivity;
++import com.example.pokemonquiz.DataAccess.PokemonDao;
++import com.example.pokemonquiz.Repo.Repository;
++import com.example.pokemonquiz.ViewModel.PokemonViewModel;
++
++import org.junit.Assert;
++import org.junit.Rule;
++import org.junit.Test;
++import org.junit.runner.RunWith;
++
++import kotlinx.coroutines.GlobalScope;
++
++@RunWith(AndroidJUnit4.class)
++@LargeTest
++public class AddEntryTest {
++    @Rule
++    public ActivityScenarioRule<AddPokemonActivity> addActivityRule = new ActivityScenarioRule<>(AddPokemonActivity.class);
++
++    @Test
++    public void testAddEntry() {
++        AddPokemonActivity addPokemonActivity = new AddPokemonActivity();
++        PokemonViewModel pokemonViewModel = addPokemonActivity.pokemonViewModel;
++        int questions = pokemonViewModel.getAll().getValue().size();
++
++
++        onView(withId(R.id.answerEntry)).perform(typeText("Pikachu"));
++        closeSoftKeyboard();
++        onView(withId(R.id.submit)).perform(click());
++      //  Assert.assertTrue(questions != pokemonViewModel.getAll().getValue().size());
++    }
++}
