@@ -34,7 +34,7 @@ public class QuizActivity extends AppCompatActivity {
 
     public boolean hardMode = false;
     public CountDownTimer timer;
-    int score = 0;
+    public int score = 0;
     int answered = 0;
     private List<Pokemon> pokemonList;
 

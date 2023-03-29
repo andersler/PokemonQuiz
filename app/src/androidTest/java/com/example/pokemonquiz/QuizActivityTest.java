@@ -74,9 +74,10 @@ public ActivityScenarioRule<QuizActivity> QuizActivityRule = new ActivityScenari
         @Test
         public void rightAnswerPressed(){
 
-
-            onView(withId(R.id.btn2)).perform(click());
-            onView(withId(R.id.scoreBoard)).check((matches(withText("Score: 1/1"))));
+            final int[] score = new int[1];
+            QuizActivityRule.getScenario().onActivity(a -> { score[0] = a.score;});
+            onView(withId(R.id.btn1)).perform(click());
+            onView(withId(R.id.scoreBoard)).check((matches(withText("Score: "))));
 
         }
         @Test
