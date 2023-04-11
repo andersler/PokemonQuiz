@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -47,6 +48,12 @@ public class QuizActivity extends AppCompatActivity {
         PokemonViewModel pokemonViewModel = ViewModelProviders.of(this).get(PokemonViewModel.class);
         PokemonAdapter adapter = new PokemonAdapter();
 
+        if (pokemonViewModel.getAll().getValue() == null){
+            returnToMainMenu();
+            Toast.makeText(this, "Ingen Pokemons",
+                    Toast.LENGTH_LONG).show();
+        }
+
         pokemonViewModel.getAll().observe(this, new Observer<List<Pokemon>>() {
             @Override
             public void onChanged(List<Pokemon> pokemons) {
@@ -58,9 +65,7 @@ public class QuizActivity extends AppCompatActivity {
                     System.out.println("Fetched " + pokemonList.size() + " questions");
                     // Start the question loop
                     displayNextQuestion();
-                } else {
-                    System.out.println("ERROR, NO POKEMON FOUND");
-                    returnToMainMenu();
+
                 }
             }
         });

@@ -46,6 +46,8 @@ public class AddPokemonActivity extends AppCompatActivity {
 
         Button submit = findViewById(R.id.submit);
         submit.setOnClickListener(view -> submitEntry());
+
+
         exitButton();
     }
 
@@ -100,4 +102,4 @@ public class AddPokemonActivity extends AppCompatActivity {
         finish();
     }
 
-}
+    }

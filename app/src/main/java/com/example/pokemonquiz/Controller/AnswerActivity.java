@@ -21,7 +21,7 @@ import java.util.List;
 public class AnswerActivity extends AppCompatActivity {
 
     private PokemonViewModel pokemonViewModel;
-
+    private List<Pokemon> pokemonList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +44,12 @@ public class AnswerActivity extends AppCompatActivity {
             public void onChanged(List<Pokemon> pokemons) {
 
                 adapter.setPokemonList(pokemons);
-
+                pokemonList = pokemons;
             }
         });
 
+        Button delete = findViewById(R.id.delete);
+        delete.setOnClickListener(view -> deleteEntry());
 
         exitButton();
     }
@@ -59,5 +61,16 @@ public class AnswerActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+    }
+
+    void deleteEntry() {
+        if(pokemonList.size() > 0) {
+            pokemonViewModel = ViewModelProviders.of(this).get(PokemonViewModel.class);
+            pokemonViewModel.deletePokemon(pokemonList.get(pokemonList.size() - 1));
+        }
+        else {
+            Toast.makeText(this, "Ingen pokemons å slette",
+                    Toast.LENGTH_LONG).show();
+        }
     }
 }
