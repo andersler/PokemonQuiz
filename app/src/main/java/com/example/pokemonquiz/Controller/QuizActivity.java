@@ -48,24 +48,22 @@ public class QuizActivity extends AppCompatActivity {
         PokemonViewModel pokemonViewModel = ViewModelProviders.of(this).get(PokemonViewModel.class);
         PokemonAdapter adapter = new PokemonAdapter();
 
-        if (pokemonViewModel.getAll().getValue() == null){
-            returnToMainMenu();
-            Toast.makeText(this, "Ingen Pokemons",
-                    Toast.LENGTH_LONG).show();
-        }
-
         pokemonViewModel.getAll().observe(this, new Observer<List<Pokemon>>() {
             @Override
             public void onChanged(List<Pokemon> pokemons) {
 
-                if (pokemons != null) {
+                if (pokemons != null && pokemons.size() > 2) {
+
                     adapter.setPokemonList(pokemons);
                     pokemonList = pokemons;
 
                     System.out.println("Fetched " + pokemonList.size() + " questions");
+
                     // Start the question loop
                     displayNextQuestion();
-
+                    
+                } else {
+                    returnToMainMenu();
                 }
             }
         });
