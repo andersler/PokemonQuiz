@@ -67,7 +67,7 @@ public class AddPokemonActivity extends AppCompatActivity {
 
                         if (data != null && data.getData() != null) {
                             Uri uri = data.getData();
-                            System.out.println("Data got");
+                            System.out.println("Received Data");
                             try {
                                 picture = BitmapFactory.decodeStream(
                                         getContentResolver().openInputStream(uri)

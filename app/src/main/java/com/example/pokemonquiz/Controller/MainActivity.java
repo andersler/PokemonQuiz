@@ -37,21 +37,23 @@ public class MainActivity extends AppCompatActivity {
 
         pokemonViewModel = ViewModelProviders.of(this).get(PokemonViewModel.class);
 
+        pokemonViewModel.getAll().observe(this, new Observer<List<Pokemon>>() {
+            @Override
+            public void onChanged(List<Pokemon> pokemons) {
+                if (!initialized && pokemons.size() == 0) {
+                    //  Initialize question list, can be accessed regardless of what activity started first
+                    Bitmap q3 = BitmapFactory.decodeResource(getResources(), R.drawable.bulbasaur);
+                    Bitmap q2 = BitmapFactory.decodeResource(getResources(), R.drawable.charmander);
+                    Bitmap q1 = BitmapFactory.decodeResource(getResources(), R.drawable.marill);
 
-         if(pokemonViewModel.getAll() == null || !initialized) {
-          //  Initialize question list, can be accessed regardless of what activity started first
-           Bitmap q3 = BitmapFactory.decodeResource(getResources(), R.drawable.bulbasaur);
-            Bitmap q2 = BitmapFactory.decodeResource(getResources(), R.drawable.charmander);
-            Bitmap q1 = BitmapFactory.decodeResource(getResources(), R.drawable.marill);
+                    pokemonViewModel.insertPokemon(new Pokemon("Bulbasaur", Bitmap.createScaledBitmap(q3, 1000, 1000, true)));
+                    pokemonViewModel.insertPokemon(new Pokemon("Charmander", Bitmap.createScaledBitmap(q2, 1000, 1000, true)));
+                    pokemonViewModel.insertPokemon(new Pokemon("Marill", Bitmap.createScaledBitmap(q1, 1000, 1000, true)));
+                    initialized = true;
+                }
 
-           pokemonViewModel.deleteAll();
-
-            pokemonViewModel.insertPokemon(new Pokemon("Bulbasaur", Bitmap.createScaledBitmap(q3,1000,1000,true)));
-            pokemonViewModel.insertPokemon(new Pokemon("Charmander",Bitmap.createScaledBitmap(q2,1000,1000,true)));
-            pokemonViewModel.insertPokemon(new Pokemon("Marill",Bitmap.createScaledBitmap(q1,1000,1000,true)));
-             initialized = true;
-        }
-
+            }
+        });
 
         // Launches the Answers activity
         Button answersBtn = findViewById(R.id.answersBtn);
@@ -118,10 +120,6 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
-
-
-
 
 
     }
