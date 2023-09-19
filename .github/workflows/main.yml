@@ -104,12 +104,12 @@ jobs:
     - name: Check if the project uses Gradle and get Java version
       id: check-gradle
       run: |
+        set +e # Disable immediate exit
         if [ -f "build.gradle" ]; then
           echo "Gradle project detected."
           echo "GRADLE_PROJECT=true" >> $GITHUB_ENV
           
-          # Extract Java version from Gradle script. Using Java 11 as default if not specified.
-          java_version=$(grep -oP 'sourceCompatibility = \K[^\s]+' build.gradle)
+          java_version=$(grep -oP 'sourceCompatibility = \K[^\s]+' build.gradle || echo "")
           if [ -z "$java_version" ]; then
             echo "Java version not specified in build.gradle. Using default version (11)."
             echo "JAVA_VERSION=11" >> $GITHUB_ENV
@@ -121,6 +121,7 @@ jobs:
           echo "No Gradle project detected."
           echo "GRADLE_PROJECT=false" >> $GITHUB_ENV
         fi
+        set -e # Re-enable immediate exit
 
     - name: Setup Java environment and generate Gradle SBOM (if applicable)
       if: env.GRADLE_PROJECT == 'true'
